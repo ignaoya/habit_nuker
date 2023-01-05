@@ -21,6 +21,8 @@ class HabitSerializer(serializers.ModelSerializer):
         return reverse('habit_detail', args=(obj.pk,))
 
 class HabitDetailSerializer(serializers.ModelSerializer):
+    update = serializers.SerializerMethodField()
+
     class Meta:
         model = Habit
         fields = [
@@ -32,4 +34,8 @@ class HabitDetailSerializer(serializers.ModelSerializer):
             'quantitative_goal',
             'quantitative_goal_units',
             'measure_of_completion',
+            'update',
         ]
+
+    def get_update(self, obj):
+        return reverse('habit_update', args=(obj.pk,))
